@@ -34,38 +34,38 @@ This project delivers a **production-grade, end-to-end credit risk pipeline** �
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                     DATA LAYER                                       │
+│                     DATA LAYER                                      │
 │  data_generator.py  →  35,000 synthetic credit records              │
 │  Logistic default model (DTI + FICO + Utilization + Delinquencies)  │
 └───────────────────────────┬─────────────────────────────────────────┘
                             │ credit_records.csv
                             ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                  PREPROCESSING LAYER                                 │
-│  preprocessor.py                                                     │
-│  ├── Stratified 80/20 train-test split                               │
-│  ├── Median imputation + RobustScaler                                │
+│                  PREPROCESSING LAYER                                │
+│  preprocessor.py                                                    │
+│  ├── Stratified 80/20 train-test split                              │
+│  ├── Median imputation + RobustScaler                               │
 │  └── SMOTE (sampling_strategy=0.40) on training set only            │
 └───────────────────────────┬─────────────────────────────────────────┘
                             │ (X_train, X_train_smote, X_test, y_*)
                             ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                   MODEL TRAINING LAYER                               │
-│  model_trainer.py                                                    │
-│  ├── Logistic Regression [class_weight=balanced]                     │
-│  ├── Balanced Random Forest [class_weight=balanced_subsample]        │
-│  └── XGBoost [scale_pos_weight=7]                                    │
+│                   MODEL TRAINING LAYER                              │
+│  model_trainer.py                                                   │
+│  ├── Logistic Regression [class_weight=balanced]                    │
+│  ├── Balanced Random Forest [class_weight=balanced_subsample]       │
+│  └── XGBoost [scale_pos_weight=7]                                   │
 │       × 2 datasets (Baseline + SMOTE) = 6 model evaluations         │
-│                                                                      │
+│                                                                     │
 │  Metrics: ROC-AUC, PR-AUC, F1, Brier, Financial Cost Matrix         │
-│  Best model → CalibratedClassifierCV (Platt scaling)                 │
+│  Best model → CalibratedClassifierCV (Platt scaling)                │
 │  Best model → SHAP TreeExplainer (2,000-sample subset)              │
 └───────────────────────────┬─────────────────────────────────────────┘
                             │ models/*.joblib + metrics_summary.json
                             ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                   RISK DECISION LAYER                                │
-│  risk_engine.py                                                      │
+│                   RISK DECISION LAYER                               │
+│  risk_engine.py                                                     │
 │  ├── Risk Band Classifier: Grade A–E (5 tiers by PD)                │
 │  ├── Adverse Action Generator: Top-3 SHAP-driven denial reasons     │
 │  └── Cutoff Simulator: Volume / loss / revenue sweep                │
@@ -73,11 +73,11 @@ This project delivers a **production-grade, end-to-end credit risk pipeline** �
                             │
                             ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                   PRESENTATION LAYER                                 │
-│  app.py (Streamlit)                                                  │
-│  ├── Tab 1: Executive Portfolio Analytics                            │
+│                   PRESENTATION LAYER                                │
+│  app.py (Streamlit)                                                 │
+│  ├── Tab 1: Executive Portfolio Analytics                           │
 │  ├── Tab 2: Model Benchmarking & Fair Lending Compliance            │
-│  ├── Tab 3: Interactive Applicant Underwriter                        │
+│  ├── Tab 3: Interactive Applicant Underwriter                       │
 │  └── Tab 4: Risk Appetite & Policy Simulator                        │
 └─────────────────────────────────────────────────────────────────────┘
 ```
@@ -242,18 +242,14 @@ Financial cost matrix evaluation (`$10,000 × FN + $500 × FP`) ensures model se
 
 ---
 
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
 ---
 
 ## 👤 Author
 
-**Your Name**
-- 🐙 GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
-- 💼 LinkedIn: [linkedin.com/in/YOUR_PROFILE](https://linkedin.com/in/YOUR_PROFILE)
-
+**MD SAMEER KHAN**
+- 🐙 GitHub: [@Sameer-khan-27](https://github.com/Sameer-khan-27)
+- 💼 LinkedIn: [linkedin.com/in/md-sameer-khan-226235284](https://www.linkedin.com/in/md-sameer-khan-226235284)
+- 📧 Email: [kmdsameer993@gmail.com](mailto:kmdsameer993@gmail.com)
 ---
 
 *CreditGuard is a portfolio demonstration project using entirely synthetic data. It does not use or represent any real consumer credit information.*
